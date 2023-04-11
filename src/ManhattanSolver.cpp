@@ -1,17 +1,20 @@
 #include "ManhattanSolver.h"
 #include <iostream>
+#include <stack>
 
 void ManhattanSolver::solve(PuzzleState* state) {
+    std::cout << "Initial puzzle state: \n";
+    state->printBoard();
     state->setDepth(0);
     visited.push_back(state); //closedset
     openSet.push(state);
-    state->isInOpenSet = true;
+    //state->isInOpenSet = true;
     std::vector<PuzzleState*> help;
     help.push_back(state);
 
     while (!openSet.empty()) {
         if (openSet.top()->isGoal()) {
-            std::cout << "PATH FOUND";
+            //std::cout << "PATH FOUND";
             printPath(openSet.top());
             return;
         }
@@ -38,7 +41,7 @@ void ManhattanSolver::solve(PuzzleState* state) {
             if (!inHelpSet) { //(!i->isInOpenSet)
                 openSet.push(i);
                 help.push_back(i);
-                i->isInOpenSet = true;
+                //i->isInOpenSet = true;
                 tentBetter = true;
             } else {
                 if (tentativeDepth < i->getDepth())
@@ -49,18 +52,23 @@ void ManhattanSolver::solve(PuzzleState* state) {
                 i->setDepth(tentativeDepth);
             }
         }
-        //std::cout << openSet.size() << std::endl;
     }
     return;
 }
 
-void ManhattanSolver::printPath(PuzzleState* state) { //temp od tylu
-    std::cout << "\nPath (reversed): \n";
+void ManhattanSolver::printPath(PuzzleState* state) {
+    std::cout << "To solve: \n";
     PuzzleState* curr = state;
     int d = curr->getDepth();
+    std::stack<short> path;
     for (int i = 0; i < d; i++) {
-        curr->printBoard();
+        //curr->printBoard();
+        path.push(curr->movedNum());
         curr = curr->getPredecessor();
+    }
+    while (!path.empty()) {
+        std::cout << "Move " << path.top() << "\n";
+        path.pop();
     }
 }
 
@@ -79,6 +87,5 @@ int ManhattanSolver::heuristicCost(PuzzleState* state) {
 }
 
 ManhattanSolver::ManhattanSolver() {
-
 }
 

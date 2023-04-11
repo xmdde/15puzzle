@@ -17,8 +17,7 @@ private:
 public:
     PuzzleState();
     PuzzleState(short *board);
-    PuzzleState(short *arr, move m);
-    bool isInOpenSet;
+    PuzzleState(const short *arr, move m);
     int getDepth();
     void setDepth(int d);
     int getGapPos();
@@ -30,10 +29,11 @@ public:
     bool operator==(const PuzzleState& state) const;
     bool operator!=(const PuzzleState& state) const;
     ~PuzzleState();
-    void swapOnBoard(int index1, int index2);
     void printBoard();
     void randomizeBoard();
     PuzzleState* getPredecessor();
+
+    short movedNum();
 };
 
 #endif //INC_15PUZZLE_PUZZLESTATE_H

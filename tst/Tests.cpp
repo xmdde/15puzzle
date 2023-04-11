@@ -8,7 +8,9 @@ public:
 TEST_F(Tests, generateStateTest) {
     short arr[16] = {2, 3, 4, 5, 6, 7, 8, 1, 9, 10, 11, 12, 13, 14, 15, 0};
     PuzzleState state = *new PuzzleState(arr);
-    EXPECT_EQ(arr[2], state.getBoard()[2]);
+    for (int i = 0; i < 16; i++) {
+        EXPECT_EQ(arr[i], state.getBoard()[i]);
+    }
 }
 
 TEST_F(Tests, neighboursTest) {
@@ -32,4 +34,11 @@ TEST_F(Tests, swapTest) {
     PuzzleState l(testarr, LEFT);
     EXPECT_EQ(l.getBoard()[10], 0);
     EXPECT_EQ(l.getBoard()[11], 11);
+}
+
+TEST_F(Tests, interpretMoveTest) {
+    PuzzleState state(testarr);
+    PuzzleState nextState(testarr, UP);
+    nextState.setPredecessor(&state);
+    EXPECT_EQ(nextState.movedNum(), 8);
 }

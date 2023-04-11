@@ -40,7 +40,6 @@ public:
     ManhattanSolver();
     void solve(PuzzleState* state) override;
     int heuristicCost(PuzzleState* state);
-    //bool openSetContains(PuzzleState s);
     void printPath(PuzzleState* state);
 };
 

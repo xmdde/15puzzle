@@ -8,10 +8,8 @@ PuzzleState::PuzzleState() { //random state max 20 steps from goal
     board[15] = 0;
     depth = 0;
     predecessor = nullptr;
-    isInOpenSet = false;
+    //isInOpenSet = false;
     randomizeBoard();
-    std::cout << "Initial puzzle state: \n";
-    printBoard();
 }
 
 PuzzleState::PuzzleState(short *arr) {
@@ -22,10 +20,10 @@ PuzzleState::PuzzleState(short *arr) {
         short tmp = arr[i];
         this->board[i] = tmp;
     }
-    isInOpenSet = false;
+    //isInOpenSet = false;
 }
 
-PuzzleState::PuzzleState(short *arr, move m) {
+PuzzleState::PuzzleState(const short *arr, move m) {
     this->board = new short[16];
     predecessor = nullptr;
     depth = 0;
@@ -33,7 +31,7 @@ PuzzleState::PuzzleState(short *arr, move m) {
         short tmp = arr[i];
         this->board[i] = tmp;
     }
-    isInOpenSet = false;
+    //isInOpenSet = false;
     int gapPos = getGapPos();
     switch (m) {
         case move::UP:
@@ -65,7 +63,9 @@ void PuzzleState::setDepth(int d) {
 
 void PuzzleState::printBoard() {
     for (int i = 0; i < 16; i++) {
+        if (board[i] < 10) std::cout << ' ';
         std::cout << board[i] << ' ';
+        if (i%4 == 3) std::cout << '\n';
     }
     std::cout << '\n';
 }
@@ -157,19 +157,36 @@ bool PuzzleState::isGoal() const {
 void PuzzleState::randomizeBoard() {
     srand((unsigned) time(nullptr));
     int zeroPos = getGapPos();
+    int count = 0;
 
-    for (int i = 0; i < 20; i++) {
+    while (count < 15) {
+    //for (int i = 0; i < 20; i++) {
         int r = rand() % 4;
-        if (r == 0 && zeroPos > 3)
+        if (r == 0 && zeroPos > 3) {
             moveGap(UP);
-        else if (r == 1 && zeroPos < 12)
+            count++;
+        }
+        else if (r == 1 && zeroPos < 12) {
             moveGap(DOWN);
-        else if (r == 2 && zeroPos%4 != 0)
+            count++;
+        }
+        else if (r == 2 && zeroPos%4 != 0) {
             moveGap(LEFT);
-        else if (r == 3 && zeroPos%4 != 3)
+            count++;
+        }
+        else if (r == 3 && zeroPos%4 != 3) {
             moveGap(RIGHT);
+            count++;
+        }
         zeroPos = getGapPos();
     }
+}
+
+short PuzzleState::movedNum() {
+    if (predecessor == nullptr)
+        return -1;
+    int p = getGapPos();
+    return predecessor->getBoard()[p];
 }
 
 PuzzleState *PuzzleState::getPredecessor() {
