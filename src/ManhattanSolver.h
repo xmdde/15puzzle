@@ -5,7 +5,8 @@
 #include <queue>
 #include <set>
 #include <unordered_set>
-#include <math.h>
+#include <cmath>
+
 struct comparePuzzleState {
     bool operator () (PuzzleState* state1, PuzzleState* state2) {
         int cost1 = state1->getDepth();

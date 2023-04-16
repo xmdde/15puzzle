@@ -11,7 +11,7 @@ protected:
 public:
     void addToVisited(PuzzleState* state);
     bool isVisited(PuzzleState* state);
-    virtual void solve(PuzzleState* state) = 0; //args
+    virtual void solve(PuzzleState* state) = 0;
 };
 
 #endif //INC_15PUZZLE_SOLVER_H

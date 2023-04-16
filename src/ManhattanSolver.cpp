@@ -8,14 +8,13 @@ void ManhattanSolver::solve(PuzzleState* state) {
     state->setDepth(0);
     visited.push_back(state); //closedset
     openSet.push(state);
-    //state->isInOpenSet = true;
     std::vector<PuzzleState*> help;
     help.push_back(state);
 
     while (!openSet.empty()) {
         if (openSet.top()->isGoal()) {
-            //std::cout << "PATH FOUND";
             printPath(openSet.top());
+            std::cout << "\nNumber of visited states: " << visited.size() << "\n";
             return;
         }
         auto x = openSet.top();
@@ -38,10 +37,9 @@ void ManhattanSolver::solve(PuzzleState* state) {
                 }
             }
 
-            if (!inHelpSet) { //(!i->isInOpenSet)
+            if (!inHelpSet) {
                 openSet.push(i);
                 help.push_back(i);
-                //i->isInOpenSet = true;
                 tentBetter = true;
             } else {
                 if (tentativeDepth < i->getDepth())
@@ -62,7 +60,6 @@ void ManhattanSolver::printPath(PuzzleState* state) {
     int d = curr->getDepth();
     std::stack<short> path;
     for (int i = 0; i < d; i++) {
-        //curr->printBoard();
         path.push(curr->movedNum());
         curr = curr->getPredecessor();
     }

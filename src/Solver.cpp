@@ -1,4 +1,5 @@
 #include "Solver.h"
+
 bool Solver::isVisited(PuzzleState* state) {
 
     for (auto i : visited) {

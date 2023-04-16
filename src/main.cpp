@@ -1,8 +1,11 @@
 #include "ManhattanSolver.h"
+#include "EuclideanSolver.h"
 
 int main() {
-    //short presentation[] = {1,2,3,4,5,10,6,7,14,0,11,8,9,13,15,12};
+    auto* state = new PuzzleState();
     ManhattanSolver manhattanSolver;
-    manhattanSolver.solve(new PuzzleState());
+    manhattanSolver.solve(state);
+    //EuclideanSolver euclideanSolver;
+    //euclideanSolver.solve(state);
     return 0;
 }

@@ -8,7 +8,6 @@ PuzzleState::PuzzleState() { //random state max 20 steps from goal
     board[15] = 0;
     depth = 0;
     predecessor = nullptr;
-    //isInOpenSet = false;
     randomizeBoard();
 }
 
@@ -20,7 +19,6 @@ PuzzleState::PuzzleState(short *arr) {
         short tmp = arr[i];
         this->board[i] = tmp;
     }
-    //isInOpenSet = false;
 }
 
 PuzzleState::PuzzleState(const short *arr, move m) {
@@ -31,7 +29,6 @@ PuzzleState::PuzzleState(const short *arr, move m) {
         short tmp = arr[i];
         this->board[i] = tmp;
     }
-    //isInOpenSet = false;
     int gapPos = getGapPos();
     switch (m) {
         case move::UP:
@@ -159,8 +156,7 @@ void PuzzleState::randomizeBoard() {
     int zeroPos = getGapPos();
     int count = 0;
 
-    while (count < 15) {
-    //for (int i = 0; i < 20; i++) {
+    while (count < 25) {
         int r = rand() % 4;
         if (r == 0 && zeroPos > 3) {
             moveGap(UP);
