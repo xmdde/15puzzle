@@ -1,11 +1,12 @@
 #ifndef INC_15PUZZLE_MANHATTANSOLVER_H
 #define INC_15PUZZLE_MANHATTANSOLVER_H
 
-#include "Solver.h"
 #include <queue>
 #include <set>
 #include <unordered_set>
 #include <cmath>
+
+#include "Solver.h"
 
 struct comparePuzzleState {
     bool operator () (PuzzleState* state1, PuzzleState* state2) {

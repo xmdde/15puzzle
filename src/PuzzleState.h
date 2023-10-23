@@ -16,7 +16,7 @@ private:
     PuzzleState* predecessor;
 public:
     PuzzleState();
-    PuzzleState(short *board);
+    explicit PuzzleState(short *board);
     PuzzleState(const short *arr, move m);
     int getDepth();
     void setDepth(int d);
@@ -34,6 +34,10 @@ public:
     PuzzleState* getPredecessor();
 
     short movedNum();
+
+    void randomizeCompletely();
+
+    bool solvable();
 };
 
 #endif //INC_15PUZZLE_PUZZLESTATE_H

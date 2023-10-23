@@ -1,4 +1,5 @@
 #include "EuclideanSolver.h"
+
 #include <iostream>
 #include <stack>
 

@@ -1,11 +1,12 @@
 #ifndef INC_15PUZZLE_EUCLIDEANSOLVER_H
 #define INC_15PUZZLE_EUCLIDEANSOLVER_H
 
-#include "Solver.h"
 #include <queue>
 #include <set>
 #include <unordered_set>
 #include <cmath>
+
+#include "Solver.h"
 
 struct euclideanComparePuzzleState {
     bool operator () (PuzzleState* state1, PuzzleState* state2) {
@@ -36,11 +37,11 @@ struct euclideanComparePuzzleState {
 class EuclideanSolver : public Solver {
 private:
     std::vector<PuzzleState*> visited;
-    std::priority_queue<PuzzleState*, std::vector<PuzzleState*>, euclideanComparePuzzleState> openSet; //unvisited nodes, nbhs to visited
+    std::priority_queue<PuzzleState*, std::vector<PuzzleState*>, euclideanComparePuzzleState> openSet;  // unvisited nodes, nbhs to visited
 public:
     EuclideanSolver();
     void solve(PuzzleState* state) override;
     void printPath(PuzzleState* state);
 };
 
-#endif //INC_15PUZZLE_EUCLIDEANSOLVER_H
+#endif  // INC_15PUZZLE_EUCLIDEANSOLVER_H

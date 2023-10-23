@@ -1,4 +1,5 @@
 #include "ManhattanSolver.h"
+
 #include <iostream>
 #include <stack>
 

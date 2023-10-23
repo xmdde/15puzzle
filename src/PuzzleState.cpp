@@ -1,7 +1,15 @@
 #include "PuzzleState.h"
+
 #include <iostream>
 
 PuzzleState::PuzzleState() { //random state max 20 steps from goal
+    /*
+    randomizeCompletely();
+    depth = 0;
+    predecessor = nullptr;
+    printBoard();
+    std::cout << this->solvable();
+    */
     this->board = new short[16];
     for (int i = 0; i < 15; i++)
         board[i] = i+1;
@@ -156,7 +164,9 @@ void PuzzleState::randomizeBoard() {
     int zeroPos = getGapPos();
     int count = 0;
 
-    while (count < 25) {
+    constexpr int SHIFTS_NUM = 20;
+
+    while (count < SHIFTS_NUM) {
         int r = rand() % 4;
         if (r == 0 && zeroPos > 3) {
             moveGap(UP);
@@ -176,6 +186,41 @@ void PuzzleState::randomizeBoard() {
         }
         zeroPos = getGapPos();
     }
+}
+
+void PuzzleState::randomizeCompletely() {
+    srand((unsigned) time(nullptr));
+    int pos;
+    this->board = new short[16];
+    for (int i = 0; i < 16; i++) {
+        board[i] = 0;
+    }
+    for (int i = 1; i <= 15; i++) {
+        bool put = false;
+        while (!put) {
+            pos = rand() % 16;
+            if (board[pos] == 0) {
+                board[pos] = (short)i;
+                put = true;
+            }
+        }
+    }
+}
+
+bool PuzzleState::solvable() {
+    int invertions = 0;
+    for (int i = 0; i < 15; i++) {
+        for (int j = i + 1; j < 16; j++){
+            if (board[i] > board[j])
+                invertions++;
+        }
+    }
+    int zeroRow = getGapPos()/4;
+    if (zeroRow%2 == 1 && invertions%2 == 0)
+        return true;
+    if (zeroRow%2 == 0 && invertions%2 == 1)
+        return true;
+    return false;
 }
 
 short PuzzleState::movedNum() {

@@ -1,5 +1,7 @@
 #include "gtest/gtest.h"
 #include "PuzzleState.h"
+#include "ManhattanSolver.h"
+
 class Tests : public ::testing::Test {
 public:
     short testarr[16] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 0, 13, 14, 15, 12};
@@ -41,4 +43,19 @@ TEST_F(Tests, interpretMoveTest) {
     PuzzleState nextState(testarr, UP);
     nextState.setPredecessor(&state);
     EXPECT_EQ(nextState.movedNum(), 8);
+}
+
+TEST_F(Tests, solvableStateTest) {
+    short arr[16] = {2, 3, 4, 5, 6, 7, 8, 1, 9, 10, 11, 12, 13, 14, 15, 0};
+    PuzzleState state(arr);
+    EXPECT_EQ(state.solvable(), true);
+}
+
+TEST_F(Tests, randomizeTest) {
+    PuzzleState *state = new PuzzleState();
+    if (state->solvable()) {
+        ManhattanSolver manhattanSolver;
+        manhattanSolver.solve(state);
+    }
+    //EXPECT_EQ(state.solvable(), true);
 }
